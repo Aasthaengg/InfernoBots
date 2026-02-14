@@ -30,8 +30,8 @@ class Mavic(Supervisor):
 
     # Movement parameters
     MAX_YAW_DISTURBANCE = 0.4      # Max turn rate
-    MAX_PITCH_DISTURBANCE = -3.0   # Max forward/backward speed (3x faster)
-    TARGET_PRECISION = 1.0         # Target reach precision in meters
+    MAX_PITCH_DISTURBANCE = -8.0   # Max forward/backward speed (much faster approach)
+    TARGET_PRECISION = 3.0         # Looser arrival to finish quicker
 
     def __init__(self):
         """Initialize Mavic 2 Pro with all sensors and motors."""
@@ -295,6 +295,8 @@ class Mavic(Supervisor):
             [0, 0, 20, 0],                    # Take off at origin to 20m altitude
             [fire_x, fire_y, hover_altitude, 0]  # Fly to actual fire location
         ]
+        self.house_waypoint = [-101, -58, hover_altitude, 0]
+        self.second_leg_started = False
 
         self.set_waypoints(waypoints)
 
@@ -336,6 +338,16 @@ class Mavic(Supervisor):
                             self.camera_pitch_motor.setPosition(1.57)  # 90 degrees down
                             print("📷 Camera adjusted to look down at fire")
                             camera_adjusted = True
+
+                        # If first target done, go to second target once
+                        if not self.second_leg_started:
+                            print("🔥 First target reached. Proceeding to house/smoke target...")
+                            self.second_leg_started = True
+                            self.mission_complete = False
+                            self.current_waypoint_index = 0
+                            self.waypoints = [self.house_waypoint]
+                            self.set_target_gps(*self.house_waypoint)
+                            continue
                         # Continue running to maintain hover
 
             # Update motor velocities
