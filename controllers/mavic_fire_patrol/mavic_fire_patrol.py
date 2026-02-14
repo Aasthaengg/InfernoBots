@@ -295,7 +295,9 @@ class Mavic(Supervisor):
             [0, 0, 20, 0],                    # Take off at origin to 20m altitude
             [fire_x, fire_y, hover_altitude, 0]  # Fly to actual fire location
         ]
-        self.house_waypoint = [-101, -58, hover_altitude, 0]
+
+        # Second leg: offset a few meters from the fire (house/smoke cluster nearby)
+        self.house_waypoint = [fire_x - 2, fire_y - 3, hover_altitude, 0]
         self.second_leg_started = False
 
         self.set_waypoints(waypoints)
