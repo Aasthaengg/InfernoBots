@@ -1,0 +1,521 @@
+#VRML_SIM R2023b utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/floors/protos/Floor.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/appearances/protos/SandyGround.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/buildings/protos/Windmill.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/factory/manhole/protos/SquareManhole.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/factory/containers/protos/CardboardBox.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/trees/protos/Pine.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/objects/trees/protos/Forest.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023b/projects/robots/dji/mavic/protos/Mavic2Pro.proto"
+
+WorldInfo {
+  info [
+    "This demonstration shows a DJI Mavic 2 PRO flying over a rural area."
+    "After the drone has taken off, you can control it with the keyboard of your computer."
+  ]
+  title "DJI Mavic 2 PRO demo"
+  basicTimeStep 8
+  defaultDamping Damping {
+    linear 0.5
+    angular 0.5
+  }
+}
+Viewpoint {
+  orientation 0.6545396201216808 -0.06331220981260995 -0.7533720526934948 3.4507141685861957
+  position -4.682611000703252 -66.97079562917177 273.3730645807662
+  near 0.2
+  exposure 0.8
+  follow "Mavic 2 PRO"
+  followSmoothness 0.2
+}
+TexturedBackground {
+  luminosity 3
+}
+TexturedBackgroundLight {
+  luminosity 0.8
+}
+Floor {
+  size 400 400
+  tileSize 6 6
+  appearance SandyGround {
+  }
+}
+Windmill {
+  translation -43.8656 -19.8433 0
+  rotation -7.19228e-09 2.6842e-08 1 0.523601
+}
+Windmill {
+  translation -44.258 -27.3356 0
+  rotation -7.19228e-09 2.6842e-08 1 0.523601
+  name "windmill(1)"
+}
+Windmill {
+  translation -46.2448 30.573 0
+  rotation -7.19228e-09 2.6842e-08 1 0.523601
+  name "windmill(2)"
+}
+Windmill {
+  translation -38.75 23.4 0
+  name "windmill(3)"
+}
+SquareManhole {
+  translation 0 0 -0.03
+}
+CardboardBox {
+  translation -0.730157 -1.22891 0.3
+  rotation 0 0 1 -1.8325953071795862
+}
+Pine {
+  translation -14.0083 -14.4828 0
+  rotation 0 0 1 2.61799
+}
+Pine {
+  translation -90 -49 4
+  rotation 0 0 1 2.61799
+  name "pine tree(7)"
+}
+DEF FIRE Pose {
+  translation -100 -55 8
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 1 0.25 0.2
+        roughness 0.1
+        emissiveColor 1 0.1 0
+        emissiveIntensity 50
+      }
+      geometry Sphere {
+      }
+      castShadows FALSE
+    }
+  ]
+}
+DEF FIRE Pose {
+  translation -99 -54 7.5
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 1 0.25 0.2
+        roughness 0.1
+        emissiveColor 1 0.1 0
+      }
+      geometry Sphere {
+      }
+      castShadows FALSE
+    }
+  ]
+}
+DEF FIRE Pose {
+  translation -97.5 -53.5 8
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 1 0.25 0.2
+        roughness 0.1
+        emissiveColor 1 0.1 0
+      }
+      geometry Sphere {
+      }
+      castShadows FALSE
+    }
+  ]
+}
+DEF FIRE Pose {
+  translation -96 -52.5 7
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 1 0.25 0.2
+        roughness 0.1
+        emissiveColor 1 0.1 0
+      }
+      geometry Sphere {
+      }
+      castShadows FALSE
+    }
+  ]
+}
+DEF FIRE Pose {
+  translation -94.5 -51.5 7
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 1 0.25 0.2
+        roughness 0.1
+        emissiveColor 1 0.1 0
+      }
+      geometry Sphere {
+      }
+      castShadows FALSE
+    }
+  ]
+}
+DEF FIRE Pose {
+  translation -81 60.5 6
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 1 0.25 0.2
+        roughness 0.1
+        emissiveColor 1 0.1 0
+      }
+      geometry Sphere {
+      }
+      castShadows FALSE
+    }
+  ]
+}
+DEF FIRE Pose {
+  translation -82 63 8.5
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 1 0.25 0.2
+        roughness 0.1
+        emissiveColor 1 0.1 0
+      }
+      geometry Sphere {
+      }
+      castShadows FALSE
+    }
+  ]
+}
+DEF FIRE Pose {
+  translation -84 63 8.5
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 1 0.25 0.2
+        roughness 0.1
+        emissiveColor 1 0.1 0
+      }
+      geometry Sphere {
+      }
+      castShadows FALSE
+    }
+  ]
+}
+DEF FIRE Pose {
+  translation -81.5 61.5 7.5
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 1 0.25 0.2
+        roughness 0.1
+        emissiveColor 1 0.1 0
+      }
+      geometry Sphere {
+      }
+      castShadows FALSE
+    }
+  ]
+}
+DEF FIRE Pose {
+  translation -6 65 8
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 1 0.25 0.2
+        roughness 0.1
+        emissiveColor 1 0.1 0
+      }
+      geometry Sphere {
+        radius 0.75
+      }
+      castShadows FALSE
+    }
+  ]
+}
+DEF FIRE Pose {
+  translation -10 64 8.5
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 1 0.25 0.2
+        roughness 0.1
+        emissiveColor 1 0.1 0
+      }
+      geometry Sphere {
+      }
+      castShadows FALSE
+    }
+  ]
+}
+DEF FIRE Pose {
+  translation -8.5 64 7.5
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 1 0.25 0.2
+        roughness 0.1
+        emissiveColor 1 0.1 0
+      }
+      geometry Sphere {
+      }
+      castShadows FALSE
+    }
+  ]
+}
+DEF FIRE Pose {
+  translation -7 65 7
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 1 0.25 0.2
+        roughness 0.1
+        emissiveColor 1 0.1 0
+      }
+      geometry Sphere {
+      }
+      castShadows FALSE
+    }
+  ]
+}
+DEF FIRE Pose {
+  translation 80 150 9
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 1 0.25 0.2
+        roughness 0.1
+        emissiveColor 1 0.1 0
+      }
+      geometry Sphere {
+        radius 1.2
+      }
+      castShadows FALSE
+    }
+  ]
+}
+DEF FIRE Pose {
+  translation 81.5 148.5 8.5
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 1 0.25 0.2
+        roughness 0.1
+        emissiveColor 1 0.1 0
+      }
+      geometry Sphere {
+        radius 1.2
+      }
+      castShadows FALSE
+    }
+  ]
+}
+DEF FIRE Pose {
+  translation 83 147.5 8
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 1 0.25 0.2
+        roughness 0.1
+        emissiveColor 1 0.1 0
+      }
+      geometry Sphere {
+        radius 1.2
+      }
+      castShadows FALSE
+    }
+  ]
+}
+DEF FIRE Pose {
+  translation 85 146 7
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 1 0.25 0.2
+        roughness 0.1
+        emissiveColor 1 0.1 0
+      }
+      geometry Sphere {
+      }
+      castShadows FALSE
+    }
+  ]
+}
+DEF FIRE Pose {
+  translation 86 143 6.5
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 1 0.25 0.2
+        roughness 0.1
+        emissiveColor 1 0.1 0
+      }
+      geometry Sphere {
+        radius 0.75
+      }
+      castShadows FALSE
+    }
+  ]
+}
+DEF FIRE Pose {
+  translation 77.5 153 6.5
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 1 0.25 0.2
+        roughness 0.1
+        emissiveColor 1 0.1 0
+      }
+      geometry Sphere {
+        radius 0.75
+      }
+      castShadows FALSE
+    }
+  ]
+}
+Pine {
+  translation -19.6195 -24.3783 0
+  rotation 0 0 1 2.87979
+  name "pine tree(1)"
+}
+Pine {
+  translation -22.0129 6.20205 0
+  name "pine tree(3)"
+}
+Pine {
+  translation -10.6926 -25.1339 0
+  name "pine tree(4)"
+}
+Pine {
+  translation -14.3441 14.5621 0
+  name "pine tree(5)"
+}
+Pine {
+  translation -26.6328 -7.1707 0
+  name "pine tree(6)"
+}
+Pine {
+  translation -9.37029 14.0209 0
+  rotation 0 0 1 -2.6179953071795863
+  name "pine tree(2)"
+}
+Forest {
+  translation 0 0 -0.01
+  shape [
+    200 200
+    200 0
+    50 0
+    50 50
+    -50 50
+    -50 -50
+    50 -50
+    50 0
+    200 0
+    200 -200
+    -200 -200
+    -200 200
+  ]
+  density 0.01
+  type "cherry tree"
+  randomSeed 1
+  maxHeight 12
+  minHeight 6
+  maxRadius 6
+  minRadius 3
+}
+Forest {
+  translation 8 8 -0.01
+  shape [
+    200 200
+    200 0
+    50 0
+    50 50
+    -50 50
+    -50 -50
+    50 -50
+    50 0
+    200 0
+    200 -200
+    -200 -200
+    -200 200
+  ]
+  density 0.01
+  type "cherry tree"
+  randomSeed 1
+  maxHeight 12
+  minHeight 6
+  maxRadius 6
+  minRadius 3
+}
+Forest {
+  translation 20 8 -0.01
+  shape [
+    200 200
+    200 0
+    50 0
+    50 50
+    -50 50
+    -50 -50
+    50 -50
+    50 0
+    200 0
+    200 -200
+    -200 -200
+    -200 200
+  ]
+  density 0.01
+  type "cherry tree"
+  randomSeed 1
+  maxHeight 12
+  minHeight 6
+  maxRadius 6
+  minRadius 3
+}
+Forest {
+  translation 8 20 -0.01
+  shape [
+    200 200
+    200 0
+    50 0
+    50 50
+    -50 50
+    -50 -50
+    50 -50
+    50 0
+    200 0
+    200 -200
+    -200 -200
+    -200 200
+  ]
+  density 0.01
+  type "cherry tree"
+  randomSeed 1
+  maxHeight 12
+  minHeight 6
+  maxRadius 6
+  minRadius 3
+}
+Mavic2Pro {
+  hidden position_0_0 -1.3789833679710354e-09
+  hidden linearVelocity_0 -0.02629789218442985 0.06784648425458302 1.860459553537496e-09
+  hidden angularVelocity_0 1.0271513920189147e-07 -1.3232156798610652e-07 0.00015342635300413007
+  hidden translation_5 0.0412774 -0.00469654 -0.00405862
+  hidden rotation_5 0 0 1 0
+  hidden position_5_0 -1.6714468011593367e-08
+  hidden linearVelocity_5 -0.02631442955550247 0.06783615316476806 4.022186638151244e-09
+  hidden angularVelocity_5 1.0274070853463562e-07 -1.323874843855106e-07 0.0001534126396486036
+  hidden translation_6 0.000625212 -0.00530346 -0.0207448
+  hidden rotation_6 0 1 0 0
+  hidden position_6_0 7.244971627338075e-08
+  hidden linearVelocity_6 -0.026313702369067556 0.06783563234455538 3.025378376679374e-09
+  hidden angularVelocity_6 1.2263775060681828e-07 -1.1819613203816923e-07 0.0001534126085359589
+  hidden translation_7 0.00754686 0.0160388 -0.00586401
+  hidden rotation_7 1 0 0 7.300048299977715e-08
+  hidden linearVelocity_7 -0.02631306830318933 0.06783452446570996 1.6652429460921265e-09
+  hidden angularVelocity_7 -2.3709850450752554e-08 8.698826438832349e-08 0.00015341134942662197
+  translation 0 0.83394003427912 0.9999490146599878
+  rotation -0.0021700925506025364 0.001923098492575715 0.999995796186419 2.190360929419725
+  cameraSlot [
+    Camera {
+      width 400
+      height 240
+      near 0.2
+    }
+  ]
+}
