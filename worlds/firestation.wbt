@@ -1,0 +1,724 @@
+#VRML_SIM R2025a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/floors/protos/Floor.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/develop/projects/robots/pal_robotics/tiago_lite/protos/TiagoLite.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/robots/dji/mavic/protos/Mavic2Pro.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/factory/containers/protos/WoodenBox.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/factory/containers/protos/CardboardBox.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/factory/pallet/protos/WoodenPallet.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/factory/fire_extinguisher/protos/FireExtinguisher.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/tables/protos/Table.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/obstacles/protos/OilBarrel.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/solids/protos/SolidBox.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/appearances/protos/Roughcast.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/appearances/protos/CorrugatedMetal.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/appearances/protos/GalvanizedMetal.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/appearances/protos/ThreadMetalPlate.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/appearances/protos/BrushedAluminium.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/factory/containers/protos/PlasticCrate.proto"
+
+WorldInfo {
+  info [
+    "FireBot v8 - Grid Navigation with PID Control"
+    "Improved floor markings for robot guidance"
+  ]
+  title "FireBot Warehouse v8"
+  basicTimeStep 32
+  contactProperties [
+    ContactProperties {
+      material1 "InteriorWheelMat"
+      coulombFriction [
+        0, 2, 0
+      ]
+      frictionRotation -0.785398 0
+      bounce 0
+      forceDependentSlip [
+        10, 0
+      ]
+    }
+    ContactProperties {
+      material1 "ExteriorWheelMat"
+      coulombFriction [
+        0, 2, 0
+      ]
+      frictionRotation 0.785398 0
+      bounce 0
+      forceDependentSlip [
+        10, 0
+      ]
+    }
+  ]
+}
+
+Viewpoint {
+  orientation -0.35 0.15 0.92 2.5
+  position 5 -18 16
+  near 0.2
+}
+
+TexturedBackground {
+  texture "factory"
+}
+
+TexturedBackgroundLight {
+  luminosity 1.5
+}
+
+# ══════════════════════════════════════════════════════════════
+# LIGHTING
+# ══════════════════════════════════════════════════════════════
+
+PointLight {
+  attenuation 0 0 1
+  intensity 8
+  location -3 2 7
+  castShadows TRUE
+}
+
+PointLight {
+  attenuation 0 0 1
+  intensity 5
+  location 2 2 6
+}
+
+PointLight {
+  attenuation 0 0 1
+  intensity 5
+  location -1 -4 5
+}
+
+# ══════════════════════════════════════════════════════════════
+# FLOOR
+# ══════════════════════════════════════════════════════════════
+
+Floor {
+  size 14 14
+  tileSize 2 2
+  appearance ThreadMetalPlate {
+    textureTransform TextureTransform {
+      scale 7 7
+    }
+  }
+}
+
+# ══════════════════════════════════════════════════════════════
+# WALLS
+# ══════════════════════════════════════════════════════════════
+
+SolidBox {
+  name "back_wall"
+  translation 0 7.0 1.25
+  size 14.6 0.3 2.5
+  appearance Roughcast {}
+}
+
+SolidBox {
+  name "front_wall"
+  translation 0 -7.0 1.25
+  size 14.6 0.3 2.5
+  appearance Roughcast {}
+}
+
+SolidBox {
+  name "left_wall"
+  translation -7.0 0 1.25
+  size 0.3 14.6 2.5
+  appearance Roughcast {}
+}
+
+SolidBox {
+  name "right_wall"
+  translation 7.0 0 1.25
+  size 0.3 14.6 2.5
+  appearance Roughcast {}
+}
+
+# ══════════════════════════════════════════════════════════════
+# NAVIGATION GRID - Main spine corridor (yellow lines)
+# ══════════════════════════════════════════════════════════════
+
+# Main vertical spine at X = -1.5
+SolidBox {
+  name "spine_main"
+  translation -1.5 1.5 0.003
+  size 0.08 10.0 0.006
+  appearance PBRAppearance {
+    baseColor 1 0.9 0
+    metalness 0
+  }
+}
+
+# Horizontal aisle markers
+SolidBox {
+  name "aisle_d_line"
+  translation -2.65 -0.5 0.003
+  size 2.4 0.06 0.006
+  appearance PBRAppearance {
+    baseColor 0.2 0.4 0.95
+    metalness 0
+  }
+}
+
+SolidBox {
+  name "aisle_c_line"
+  translation -2.65 1.5 0.003
+  size 2.4 0.06 0.006
+  appearance PBRAppearance {
+    baseColor 0.1 0.8 0.2
+    metalness 0
+  }
+}
+
+SolidBox {
+  name "aisle_b_line"
+  translation -2.65 3.5 0.003
+  size 2.4 0.06 0.006
+  appearance PBRAppearance {
+    baseColor 1.0 0.5 0
+    metalness 0
+  }
+}
+
+SolidBox {
+  name "aisle_a_line"
+  translation -2.65 5.5 0.003
+  size 2.4 0.06 0.006
+  appearance PBRAppearance {
+    baseColor 0.95 0.1 0.1
+    metalness 0
+  }
+}
+
+# Truck route line (white)
+SolidBox {
+  name "truck_route_vert"
+  translation -1.5 -2.5 0.003
+  size 0.08 3.0 0.006
+  appearance PBRAppearance {
+    baseColor 1 1 1
+    metalness 0
+  }
+}
+
+SolidBox {
+  name "truck_route_horiz"
+  translation -0.75 -3.5 0.003
+  size 1.6 0.08 0.006
+  appearance PBRAppearance {
+    baseColor 1 1 1
+    metalness 0
+  }
+}
+
+# Waypoint markers (circles approximated with small squares)
+SolidBox {
+  name "wp_spine_d"
+  translation -1.5 -0.5 0.004
+  size 0.15 0.15 0.008
+  appearance PBRAppearance {
+    baseColor 0.2 0.4 0.95
+    metalness 0
+  }
+}
+
+SolidBox {
+  name "wp_spine_c"
+  translation -1.5 1.5 0.004
+  size 0.15 0.15 0.008
+  appearance PBRAppearance {
+    baseColor 0.1 0.8 0.2
+    metalness 0
+  }
+}
+
+SolidBox {
+  name "wp_spine_b"
+  translation -1.5 3.5 0.004
+  size 0.15 0.15 0.008
+  appearance PBRAppearance {
+    baseColor 1.0 0.5 0
+    metalness 0
+  }
+}
+
+SolidBox {
+  name "wp_spine_a"
+  translation -1.5 5.5 0.004
+  size 0.15 0.15 0.008
+  appearance PBRAppearance {
+    baseColor 0.95 0.1 0.1
+    metalness 0
+  }
+}
+
+# Shelf waypoint markers
+SolidBox {
+  name "wp_shelf_d"
+  translation -3.8 -0.5 0.004
+  size 0.15 0.15 0.008
+  appearance PBRAppearance {
+    baseColor 0.2 0.4 0.95
+    metalness 0
+  }
+}
+
+SolidBox {
+  name "wp_shelf_c"
+  translation -3.8 1.5 0.004
+  size 0.15 0.15 0.008
+  appearance PBRAppearance {
+    baseColor 0.1 0.8 0.2
+    metalness 0
+  }
+}
+
+SolidBox {
+  name "wp_shelf_b"
+  translation -3.8 3.5 0.004
+  size 0.15 0.15 0.008
+  appearance PBRAppearance {
+    baseColor 1.0 0.5 0
+    metalness 0
+  }
+}
+
+SolidBox {
+  name "wp_shelf_a"
+  translation -3.8 5.5 0.004
+  size 0.15 0.15 0.008
+  appearance PBRAppearance {
+    baseColor 0.95 0.1 0.1
+    metalness 0
+  }
+}
+
+# ══════════════════════════════════════════════════════════════
+# RACK A — FIRE SUPPRESSION (Y = +5.5) — RED
+# Objects at X = -4.2 (reachable from waypoint at -3.8)
+# ══════════════════════════════════════════════════════════════
+
+SolidBox {
+  name "rack_a_upright_L"
+  translation -5.2 5.5 0.45
+  size 0.06 0.65 0.9
+  appearance CorrugatedMetal {}
+}
+
+SolidBox {
+  name "rack_a_upright_R"
+  translation -4.0 5.5 0.45
+  size 0.06 0.65 0.9
+  appearance CorrugatedMetal {}
+}
+
+SolidBox {
+  name "rack_a_shelf"
+  translation -4.6 5.5 0.50
+  size 1.3 0.7 0.04
+  appearance GalvanizedMetal {}
+}
+
+SolidBox {
+  name "rack_a_back"
+  translation -5.25 5.5 0.45
+  size 0.02 0.65 0.9
+  appearance BrushedAluminium {}
+}
+
+# TARGET: ext_co2 at X=-4.2 (reachable from X=-3.8)
+WoodenBox {
+  name "ext_co2"
+  translation -4.2 5.5 0.60
+  size 0.14 0.14 0.14
+  mass 0.25
+}
+
+# Label
+SolidBox {
+  name "label_a"
+  translation -4.2 5.5 0.70
+  size 0.10 0.10 0.015
+  appearance PBRAppearance {
+    baseColor 0.95 0.1 0.1
+    metalness 0
+  }
+}
+
+WoodenBox {
+  name "spare_a1"
+  translation -4.6 5.5 0.58
+  size 0.12 0.12 0.12
+  mass 0.2
+}
+
+WoodenBox {
+  name "spare_a2"
+  translation -5.0 5.5 0.58
+  size 0.10 0.14 0.12
+  mass 0.2
+}
+
+# ══════════════════════════════════════════════════════════════
+# RACK B — HAZMAT (Y = +3.5) — ORANGE
+# ══════════════════════════════════════════════════════════════
+
+SolidBox {
+  name "rack_b_upright_L"
+  translation -5.2 3.5 0.45
+  size 0.06 0.65 0.9
+  appearance CorrugatedMetal {}
+}
+
+SolidBox {
+  name "rack_b_upright_R"
+  translation -4.0 3.5 0.45
+  size 0.06 0.65 0.9
+  appearance CorrugatedMetal {}
+}
+
+SolidBox {
+  name "rack_b_shelf"
+  translation -4.6 3.5 0.50
+  size 1.3 0.7 0.04
+  appearance GalvanizedMetal {}
+}
+
+SolidBox {
+  name "rack_b_back"
+  translation -5.25 3.5 0.45
+  size 0.02 0.65 0.9
+  appearance BrushedAluminium {}
+}
+
+# TARGET: hazmat_suit
+WoodenBox {
+  name "hazmat_suit"
+  translation -4.2 3.5 0.60
+  size 0.16 0.14 0.14
+  mass 0.25
+}
+
+SolidBox {
+  name "label_b"
+  translation -4.2 3.5 0.70
+  size 0.12 0.10 0.015
+  appearance PBRAppearance {
+    baseColor 1.0 0.5 0
+    metalness 0
+  }
+}
+
+WoodenBox {
+  name "spare_b1"
+  translation -4.6 3.5 0.58
+  size 0.12 0.12 0.10
+  mass 0.2
+}
+
+CardboardBox {
+  name "spare_b2"
+  translation -5.0 3.5 0.56
+  size 0.14 0.12 0.08
+  mass 0.2
+}
+
+# ══════════════════════════════════════════════════════════════
+# RACK C — MEDICAL (Y = +1.5) — GREEN
+# ══════════════════════════════════════════════════════════════
+
+SolidBox {
+  name "rack_c_upright_L"
+  translation -5.2 1.5 0.45
+  size 0.06 0.65 0.9
+  appearance CorrugatedMetal {}
+}
+
+SolidBox {
+  name "rack_c_upright_R"
+  translation -4.0 1.5 0.45
+  size 0.06 0.65 0.9
+  appearance CorrugatedMetal {}
+}
+
+SolidBox {
+  name "rack_c_shelf"
+  translation -4.6 1.5 0.50
+  size 1.3 0.7 0.04
+  appearance GalvanizedMetal {}
+}
+
+SolidBox {
+  name "rack_c_back"
+  translation -5.25 1.5 0.45
+  size 0.02 0.65 0.9
+  appearance BrushedAluminium {}
+}
+
+# TARGET: first_aid
+CardboardBox {
+  name "first_aid"
+  translation -4.2 1.5 0.58
+  size 0.14 0.14 0.10
+  mass 0.2
+}
+
+SolidBox {
+  name "label_c"
+  translation -4.2 1.5 0.66
+  size 0.10 0.10 0.015
+  appearance PBRAppearance {
+    baseColor 0.1 0.8 0.2
+    metalness 0
+  }
+}
+
+WoodenBox {
+  name "spare_c1"
+  translation -4.6 1.5 0.58
+  size 0.14 0.12 0.12
+  mass 0.2
+}
+
+WoodenBox {
+  name "spare_c2"
+  translation -5.0 1.5 0.58
+  size 0.12 0.10 0.10
+  mass 0.2
+}
+
+# ══════════════════════════════════════════════════════════════
+# RACK D — BREATHING/PPE (Y = -0.5) — BLUE
+# ══════════════════════════════════════════════════════════════
+
+SolidBox {
+  name "rack_d_upright_L"
+  translation -5.2 -0.5 0.45
+  size 0.06 0.65 0.9
+  appearance CorrugatedMetal {}
+}
+
+SolidBox {
+  name "rack_d_upright_R"
+  translation -4.0 -0.5 0.45
+  size 0.06 0.65 0.9
+  appearance CorrugatedMetal {}
+}
+
+SolidBox {
+  name "rack_d_shelf"
+  translation -4.6 -0.5 0.50
+  size 1.3 0.7 0.04
+  appearance GalvanizedMetal {}
+}
+
+SolidBox {
+  name "rack_d_back"
+  translation -5.25 -0.5 0.45
+  size 0.02 0.65 0.9
+  appearance BrushedAluminium {}
+}
+
+# TARGET: scba_tank
+WoodenBox {
+  name "scba_tank"
+  translation -4.2 -0.5 0.62
+  size 0.12 0.12 0.18
+  mass 0.25
+}
+
+SolidBox {
+  name "label_d"
+  translation -4.2 -0.5 0.74
+  size 0.10 0.10 0.015
+  appearance PBRAppearance {
+    baseColor 0.2 0.4 0.95
+    metalness 0
+  }
+}
+
+CardboardBox {
+  name "spare_d1"
+  translation -4.6 -0.5 0.56
+  size 0.14 0.12 0.08
+  mass 0.2
+}
+
+WoodenBox {
+  name "spare_d2"
+  translation -5.0 -0.5 0.58
+  size 0.16 0.14 0.12
+  mass 0.25
+}
+
+# ══════════════════════════════════════════════════════════════
+# AISLE SIGNS
+# ══════════════════════════════════════════════════════════════
+
+SolidBox {
+  name "sign_a"
+  translation -6.5 5.5 1.2
+  size 0.04 0.5 0.35
+  appearance PBRAppearance {
+    baseColor 0.95 0.1 0.1
+    metalness 0.3
+  }
+}
+
+SolidBox {
+  name "sign_b"
+  translation -6.5 3.5 1.2
+  size 0.04 0.5 0.35
+  appearance PBRAppearance {
+    baseColor 1.0 0.5 0
+    metalness 0.3
+  }
+}
+
+SolidBox {
+  name "sign_c"
+  translation -6.5 1.5 1.2
+  size 0.04 0.5 0.35
+  appearance PBRAppearance {
+    baseColor 0.1 0.8 0.2
+    metalness 0.3
+  }
+}
+
+SolidBox {
+  name "sign_d"
+  translation -6.5 -0.5 1.2
+  size 0.04 0.5 0.35
+  appearance PBRAppearance {
+    baseColor 0.2 0.4 0.95
+    metalness 0.3
+  }
+}
+
+# ══════════════════════════════════════════════════════════════
+# TRUCK LOADING BAY
+# ══════════════════════════════════════════════════════════════
+
+Table {
+  name "truck_platform"
+  translation 0 -4.5 0
+  size 3 1.8 0.3
+}
+
+SolidBox {
+  name "truck_cabin"
+  translation 0 -6.0 0.75
+  size 2.2 1.2 1.5
+  appearance PBRAppearance {
+    baseColor 0.85 0.05 0.05
+    metalness 0.6
+    roughness 0.3
+  }
+}
+
+SolidBox {
+  name "truck_bumper"
+  translation 0 -6.65 0.2
+  size 2.4 0.15 0.4
+  appearance PBRAppearance {
+    baseColor 0.5 0.5 0.5
+    metalness 0.7
+  }
+}
+
+# Truck loading zone marker
+SolidBox {
+  name "truck_zone"
+  translation 0 -4.2 0.002
+  size 2.5 1.5 0.004
+  appearance PBRAppearance {
+    baseColor 0.3 0.3 0.3
+    metalness 0
+  }
+}
+
+SolidBox {
+  name "wp_truck"
+  translation 0 -4.2 0.005
+  size 0.2 0.2 0.01
+  appearance PBRAppearance {
+    baseColor 1 1 1
+    metalness 0
+  }
+}
+
+# ══════════════════════════════════════════════════════════════
+# DECORATIVE
+# ══════════════════════════════════════════════════════════════
+
+OilBarrel {
+  name "barrel1"
+  translation 3.0 3.0 0.44
+}
+
+PlasticCrate {
+  name "crate1"
+  translation 3.0 1.0 0
+}
+
+FireExtinguisher {
+  name "ext1"
+  translation -6.3 -2.0 0
+}
+
+FireExtinguisher {
+  name "ext2"
+  translation -6.3 6.0 0
+}
+
+WoodenPallet {
+  name "pallet1"
+  translation 4.0 -4.0 0
+}
+
+WoodenPallet {
+  name "pallet2"
+  translation 4.0 -5.5 0
+}
+
+# ══════════════════════════════════════════════════════════════
+# ROBOTS
+# ══════════════════════════════════════════════════════════════
+
+DEF YOUBOT_ALPHA TiagoLite {
+  translation -1.5 -2.0 0.0
+  rotation 0 0 1 1.5708
+  name "Tiago_Lite"
+  controller "<extern>"
+  lidarSlot [
+    Lidar {
+      name "hokuyo"
+      horizontalResolution 660
+      fieldOfView 3.14
+      numberOfLayers 1
+      maxRange 6
+    }
+  ]
+}
+
+DEF MAVIC Mavic2Pro {
+  translation 5.0 5.0 0.1
+  rotation 0 0 1 0
+  name "mavic"
+  controller "<generic>"
+}
+
+DEF SUPERVISOR Robot {
+  name "firebot_supervisor"
+  controller "firebot_supervisor"
+  supervisor TRUE
+  children [
+    Emitter {
+      channel 1
+    }
+    Receiver {
+      channel 2
+    }
+  ]
+}

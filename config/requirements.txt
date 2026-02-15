@@ -1,0 +1,16 @@
+# FireBot VLM Multi-Robot System
+# Install: pip install -r requirements.txt
+
+# Core
+numpy>=1.21.0
+opencv-python>=4.5.0
+
+# VLM (optional - needs Ollama running)
+requests>=2.25.0
+
+# For real LangGraph (optional)
+# langgraph>=0.1.0
+# langchain>=0.1.0
+
+# Webots (installed separately)
+# webots

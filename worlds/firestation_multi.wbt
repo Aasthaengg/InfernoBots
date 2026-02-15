@@ -1,0 +1,562 @@
+#VRML_SIM R2025a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/floors/protos/Floor.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/robots/pal_robotics/tiago/protos/Tiago.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/factory/containers/protos/WoodenBox.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/factory/containers/protos/CardboardBox.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/factory/pallet/protos/WoodenPallet.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/factory/fire_extinguisher/protos/FireExtinguisher.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/tables/protos/Table.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/solids/protos/SolidBox.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/appearances/protos/Roughcast.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/appearances/protos/CorrugatedMetal.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/appearances/protos/GalvanizedMetal.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/appearances/protos/ThreadMetalPlate.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/appearances/protos/BrushedAluminium.proto"
+
+WorldInfo {
+  info [
+    "FireBot v9 - Multi-Robot Coordination"
+    "Two TIAGo robots with LangGraph coordination"
+  ]
+  title "FireBot Multi-Robot"
+  basicTimeStep 32
+  contactProperties [
+    ContactProperties {
+      material1 "InteriorWheelMat"
+      coulombFriction [0, 2, 0]
+      frictionRotation -0.785398 0
+      bounce 0
+      forceDependentSlip [10, 0]
+    }
+    ContactProperties {
+      material1 "ExteriorWheelMat"
+      coulombFriction [0, 2, 0]
+      frictionRotation 0.785398 0
+      bounce 0
+      forceDependentSlip [10, 0]
+    }
+  ]
+}
+
+Viewpoint {
+  orientation -0.35 0.12 0.93 2.4
+  position 4 -18 16
+  near 0.2
+}
+
+TexturedBackground {
+  texture "factory"
+}
+
+TexturedBackgroundLight {
+  luminosity 1.5
+}
+
+# ══════════════════════════════════════════════════════════════
+# LIGHTING
+# ══════════════════════════════════════════════════════════════
+
+PointLight {
+  attenuation 0 0 1
+  intensity 8
+  location -3 2 7
+  castShadows TRUE
+}
+
+PointLight {
+  attenuation 0 0 1
+  intensity 5
+  location 2 2 6
+}
+
+PointLight {
+  attenuation 0 0 1
+  intensity 5
+  location -1 -4 5
+}
+
+# ══════════════════════════════════════════════════════════════
+# FLOOR
+# ══════════════════════════════════════════════════════════════
+
+Floor {
+  size 14 14
+  tileSize 2 2
+  appearance ThreadMetalPlate {
+    textureTransform TextureTransform {
+      scale 7 7
+    }
+  }
+}
+
+# ══════════════════════════════════════════════════════════════
+# WALLS
+# ══════════════════════════════════════════════════════════════
+
+SolidBox {
+  name "back_wall"
+  translation 0 7.0 0.85
+  size 14.6 0.3 1.7
+  appearance Roughcast {}
+}
+
+SolidBox {
+  name "front_wall"
+  translation 0 -7.0 0.85
+  size 14.6 0.3 1.7
+  appearance Roughcast {}
+}
+
+SolidBox {
+  name "left_wall"
+  translation -7.0 0 0.85
+  size 0.3 14.6 1.7
+  appearance Roughcast {}
+}
+
+SolidBox {
+  name "right_wall"
+  translation 7.0 0 0.85
+  size 0.3 14.6 1.7
+  appearance Roughcast {}
+}
+
+# ══════════════════════════════════════════════════════════════
+# NAVIGATION GRID
+# ══════════════════════════════════════════════════════════════
+
+# Main spine (yellow) - visual only
+Transform {
+  translation -1.5 1.5 0.003
+  children [
+    Shape {
+      appearance PBRAppearance { baseColor 1 0.9 0 metalness 0 }
+      geometry Box { size 0.08 10.0 0.006 }
+    }
+  ]
+}
+
+# Smart grid (local navigation aids near shelves only)
+# Non-colliding visual guides for approach/offset positioning
+
+# Vertical grid lines (X direction), only near shelves (visual only)
+Transform {
+  translation -3.8 2.5 0.004
+  children [
+    Shape {
+      appearance PBRAppearance { baseColor 0.55 0.55 0.55 metalness 0 roughness 0.7 }
+      geometry Box { size 0.02 8.0 0.004 }
+    }
+  ]
+}
+Transform {
+  translation -3.2 2.5 0.004
+  children [
+    Shape {
+      appearance PBRAppearance { baseColor 0.55 0.55 0.55 metalness 0 roughness 0.7 }
+      geometry Box { size 0.02 8.0 0.004 }
+    }
+  ]
+}
+Transform {
+  translation -2.6 2.5 0.004
+  children [
+    Shape {
+      appearance PBRAppearance { baseColor 0.55 0.55 0.55 metalness 0 roughness 0.7 }
+      geometry Box { size 0.02 8.0 0.004 }
+    }
+  ]
+}
+Transform {
+  translation -2.0 2.5 0.004
+  children [
+    Shape {
+      appearance PBRAppearance { baseColor 0.55 0.55 0.55 metalness 0 roughness 0.7 }
+      geometry Box { size 0.02 8.0 0.004 }
+    }
+  ]
+}
+
+# Horizontal grid lines (Y direction), aligned with aisles (visual only)
+Transform {
+  translation -3.0 4.5 0.004
+  children [
+    Shape {
+      appearance PBRAppearance { baseColor 0.60 0.60 0.60 metalness 0 roughness 0.7 }
+      geometry Box { size 4.5 0.02 0.004 }
+    }
+  ]
+}
+Transform {
+  translation -3.0 2.5 0.004
+  children [
+    Shape {
+      appearance PBRAppearance { baseColor 0.60 0.60 0.60 metalness 0 roughness 0.7 }
+      geometry Box { size 4.5 0.02 0.004 }
+    }
+  ]
+}
+Transform {
+  translation -3.0 0.5 0.004
+  children [
+    Shape {
+      appearance PBRAppearance { baseColor 0.60 0.60 0.60 metalness 0 roughness 0.7 }
+      geometry Box { size 4.5 0.02 0.004 }
+    }
+  ]
+}
+Transform {
+  translation -3.0 -1.5 0.004
+  children [
+    Shape {
+      appearance PBRAppearance { baseColor 0.60 0.60 0.60 metalness 0 roughness 0.7 }
+      geometry Box { size 4.5 0.02 0.004 }
+    }
+  ]
+}
+
+# Aisle markers (between aisles, visual only)
+Transform {
+  translation -2.7 -1.5 0.003
+  children [
+    Shape {
+      appearance PBRAppearance { baseColor 0.2 0.4 0.95 metalness 0 }
+      geometry Box { size 1.2 0.05 0.005 }
+    }
+  ]
+}
+Transform {
+  translation -2.7 0.5 0.003
+  children [
+    Shape {
+      appearance PBRAppearance { baseColor 0.1 0.8 0.2 metalness 0 }
+      geometry Box { size 1.2 0.05 0.005 }
+    }
+  ]
+}
+Transform {
+  translation -2.7 2.5 0.003
+  children [
+    Shape {
+      appearance PBRAppearance { baseColor 1.0 0.5 0 metalness 0 }
+      geometry Box { size 1.2 0.05 0.005 }
+    }
+  ]
+}
+Transform {
+  translation -2.7 4.5 0.003
+  children [
+    Shape {
+      appearance PBRAppearance { baseColor 0.95 0.1 0.1 metalness 0 }
+      geometry Box { size 1.2 0.05 0.005 }
+    }
+  ]
+}
+
+# Truck route (white) - visual only
+Transform {
+  translation -1.5 -2.5 0.003
+  children [
+    Shape {
+      appearance PBRAppearance { baseColor 1 1 1 metalness 0 }
+      geometry Box { size 0.08 3.0 0.006 }
+    }
+  ]
+}
+
+# ══════════════════════════════════════════════════════════════
+# RACK A — FIRE SUPPRESSION (Y = +5.5) — INDUSTRIAL SHELF
+# ══════════════════════════════════════════════════════════════
+
+# Frame uprights (yellow steel)
+SolidBox {
+  name "rack_a_upright_L"
+  translation -5.05 5.5 0.90
+  size 0.05 0.70 1.80
+  appearance PBRAppearance { baseColor 0.93 0.86 0.15 metalness 0.1 roughness 0.4 }
+}
+SolidBox {
+  name "rack_a_upright_R"
+  translation -3.35 5.5 0.90
+  size 0.05 0.70 1.80
+  appearance PBRAppearance { baseColor 0.93 0.86 0.15 metalness 0.1 roughness 0.4 }
+}
+
+# Shelves (top/mid/bottom)
+SolidBox {
+  name "rack_a_shelf_top"
+  translation -4.2 5.5 1.55
+  size 1.8 0.60 0.03
+  appearance PBRAppearance { baseColor 0.95 0.90 0.20 metalness 0.1 roughness 0.4 }
+}
+SolidBox {
+  name "rack_a_shelf_mid"
+  translation -4.2 5.5 0.95
+  size 1.8 0.60 0.03
+  appearance PBRAppearance { baseColor 0.95 0.90 0.20 metalness 0.1 roughness 0.4 }
+}
+SolidBox {
+  name "rack_a_shelf_bottom"
+  translation -4.2 5.5 0.30
+  size 1.8 0.60 0.03
+  appearance PBRAppearance { baseColor 0.95 0.90 0.20 metalness 0.1 roughness 0.4 }
+}
+
+# Primary item (front, mid shelf)
+DEF ext_co2 SolidBox {
+  name "ext_co2"
+  translation -3.55 5.45 1.05
+  size 0.20 0.18 0.18
+  appearance PBRAppearance { baseColor 0.85 0.10 0.10 metalness 0 roughness 0.6 }
+}
+SolidBox {
+  name "label_a"
+  translation -3.55 5.60 1.18
+  size 0.12 0.10 0.012
+  appearance PBRAppearance { baseColor 0.95 0.1 0.1 metalness 0 }
+}
+
+# Stocked boxes (visual clutter)
+Transform { translation -4.55 5.35 1.62 children [ Shape { appearance PBRAppearance { baseColor 0.76 0.67 0.52 roughness 0.8 } geometry Box { size 0.28 0.22 0.18 } } ] }
+Transform { translation -4.05 5.55 1.62 children [ Shape { appearance PBRAppearance { baseColor 0.76 0.67 0.52 roughness 0.8 } geometry Box { size 0.22 0.20 0.16 } } ] }
+Transform { translation -4.70 5.45 1.02 children [ Shape { appearance PBRAppearance { baseColor 0.76 0.67 0.52 roughness 0.8 } geometry Box { size 0.30 0.22 0.18 } } ] }
+Transform { translation -4.10 5.35 1.02 children [ Shape { appearance PBRAppearance { baseColor 0.76 0.67 0.52 roughness 0.8 } geometry Box { size 0.24 0.20 0.16 } } ] }
+Transform { translation -4.55 5.40 0.38 children [ Shape { appearance PBRAppearance { baseColor 0.76 0.67 0.52 roughness 0.8 } geometry Box { size 0.30 0.24 0.20 } } ] }
+Transform { translation -4.05 5.55 0.38 children [ Shape { appearance PBRAppearance { baseColor 0.76 0.67 0.52 roughness 0.8 } geometry Box { size 0.26 0.22 0.18 } } ] }
+
+# RACK B — HAZMAT (Y = +3.5) — INDUSTRIAL SHELF
+# ══════════════════════════════════════════════════════════════
+
+SolidBox {
+  name "rack_b_upright_L"
+  translation -5.05 3.5 0.90
+  size 0.05 0.70 1.80
+  appearance PBRAppearance { baseColor 0.93 0.86 0.15 metalness 0.1 roughness 0.4 }
+}
+SolidBox {
+  name "rack_b_upright_R"
+  translation -3.35 3.5 0.90
+  size 0.05 0.70 1.80
+  appearance PBRAppearance { baseColor 0.93 0.86 0.15 metalness 0.1 roughness 0.4 }
+}
+
+SolidBox {
+  name "rack_b_shelf_top"
+  translation -4.2 3.5 1.55
+  size 1.8 0.60 0.03
+  appearance PBRAppearance { baseColor 0.95 0.90 0.20 metalness 0.1 roughness 0.4 }
+}
+SolidBox {
+  name "rack_b_shelf_mid"
+  translation -4.2 3.5 0.95
+  size 1.8 0.60 0.03
+  appearance PBRAppearance { baseColor 0.95 0.90 0.20 metalness 0.1 roughness 0.4 }
+}
+SolidBox {
+  name "rack_b_shelf_bottom"
+  translation -4.2 3.5 0.30
+  size 1.8 0.60 0.03
+  appearance PBRAppearance { baseColor 0.95 0.90 0.20 metalness 0.1 roughness 0.4 }
+}
+
+DEF hazmat_suit SolidBox {
+  name "hazmat_suit"
+  translation -3.55 3.45 1.05
+  size 0.20 0.18 0.18
+  appearance PBRAppearance { baseColor 1.0 0.55 0.05 metalness 0 roughness 0.6 }
+}
+SolidBox {
+  name "label_b"
+  translation -3.55 3.60 1.18
+  size 0.12 0.10 0.012
+  appearance PBRAppearance { baseColor 1.0 0.5 0 metalness 0 }
+}
+
+Transform { translation -4.55 3.35 1.62 children [ Shape { appearance PBRAppearance { baseColor 0.76 0.67 0.52 roughness 0.8 } geometry Box { size 0.28 0.22 0.18 } } ] }
+Transform { translation -4.05 3.55 1.62 children [ Shape { appearance PBRAppearance { baseColor 0.76 0.67 0.52 roughness 0.8 } geometry Box { size 0.22 0.20 0.16 } } ] }
+Transform { translation -4.70 3.45 1.02 children [ Shape { appearance PBRAppearance { baseColor 0.76 0.67 0.52 roughness 0.8 } geometry Box { size 0.30 0.22 0.18 } } ] }
+Transform { translation -4.10 3.35 1.02 children [ Shape { appearance PBRAppearance { baseColor 0.76 0.67 0.52 roughness 0.8 } geometry Box { size 0.24 0.20 0.16 } } ] }
+Transform { translation -4.55 3.40 0.38 children [ Shape { appearance PBRAppearance { baseColor 0.76 0.67 0.52 roughness 0.8 } geometry Box { size 0.30 0.24 0.20 } } ] }
+Transform { translation -4.05 3.55 0.38 children [ Shape { appearance PBRAppearance { baseColor 0.76 0.67 0.52 roughness 0.8 } geometry Box { size 0.26 0.22 0.18 } } ] }
+
+# RACK C — MEDICAL (Y = +1.5) — INDUSTRIAL SHELF
+# ══════════════════════════════════════════════════════════════
+
+SolidBox {
+  name "rack_c_upright_L"
+  translation -5.05 1.5 0.90
+  size 0.05 0.70 1.80
+  appearance PBRAppearance { baseColor 0.93 0.86 0.15 metalness 0.1 roughness 0.4 }
+}
+SolidBox {
+  name "rack_c_upright_R"
+  translation -3.35 1.5 0.90
+  size 0.05 0.70 1.80
+  appearance PBRAppearance { baseColor 0.93 0.86 0.15 metalness 0.1 roughness 0.4 }
+}
+
+SolidBox {
+  name "rack_c_shelf_top"
+  translation -4.2 1.5 1.55
+  size 1.8 0.60 0.03
+  appearance PBRAppearance { baseColor 0.95 0.90 0.20 metalness 0.1 roughness 0.4 }
+}
+SolidBox {
+  name "rack_c_shelf_mid"
+  translation -4.2 1.5 0.95
+  size 1.8 0.60 0.03
+  appearance PBRAppearance { baseColor 0.95 0.90 0.20 metalness 0.1 roughness 0.4 }
+}
+SolidBox {
+  name "rack_c_shelf_bottom"
+  translation -4.2 1.5 0.30
+  size 1.8 0.60 0.03
+  appearance PBRAppearance { baseColor 0.95 0.90 0.20 metalness 0.1 roughness 0.4 }
+}
+
+DEF first_aid SolidBox {
+  name "first_aid"
+  translation -3.55 1.45 1.05
+  size 0.20 0.18 0.14
+  appearance PBRAppearance { baseColor 0.10 0.80 0.20 metalness 0 roughness 0.6 }
+}
+SolidBox {
+  name "label_c"
+  translation -3.55 1.60 1.18
+  size 0.12 0.10 0.012
+  appearance PBRAppearance { baseColor 0.1 0.8 0.2 metalness 0 }
+}
+
+Transform { translation -4.55 1.35 1.62 children [ Shape { appearance PBRAppearance { baseColor 0.76 0.67 0.52 roughness 0.8 } geometry Box { size 0.28 0.22 0.18 } } ] }
+Transform { translation -4.05 1.55 1.62 children [ Shape { appearance PBRAppearance { baseColor 0.76 0.67 0.52 roughness 0.8 } geometry Box { size 0.22 0.20 0.16 } } ] }
+Transform { translation -4.70 1.45 1.02 children [ Shape { appearance PBRAppearance { baseColor 0.76 0.67 0.52 roughness 0.8 } geometry Box { size 0.30 0.22 0.18 } } ] }
+Transform { translation -4.10 1.35 1.02 children [ Shape { appearance PBRAppearance { baseColor 0.76 0.67 0.52 roughness 0.8 } geometry Box { size 0.24 0.20 0.16 } } ] }
+Transform { translation -4.55 1.40 0.38 children [ Shape { appearance PBRAppearance { baseColor 0.76 0.67 0.52 roughness 0.8 } geometry Box { size 0.30 0.24 0.20 } } ] }
+Transform { translation -4.05 1.55 0.38 children [ Shape { appearance PBRAppearance { baseColor 0.76 0.67 0.52 roughness 0.8 } geometry Box { size 0.26 0.22 0.18 } } ] }
+
+# RACK D — BREATHING/PPE (Y = -0.5) — INDUSTRIAL SHELF
+# ══════════════════════════════════════════════════════════════
+
+SolidBox {
+  name "rack_d_upright_L"
+  translation -5.05 -0.5 0.90
+  size 0.05 0.70 1.80
+  appearance PBRAppearance { baseColor 0.93 0.86 0.15 metalness 0.1 roughness 0.4 }
+}
+SolidBox {
+  name "rack_d_upright_R"
+  translation -3.35 -0.5 0.90
+  size 0.05 0.70 1.80
+  appearance PBRAppearance { baseColor 0.93 0.86 0.15 metalness 0.1 roughness 0.4 }
+}
+
+SolidBox {
+  name "rack_d_shelf_top"
+  translation -4.2 -0.5 1.55
+  size 1.8 0.60 0.03
+  appearance PBRAppearance { baseColor 0.95 0.90 0.20 metalness 0.1 roughness 0.4 }
+}
+SolidBox {
+  name "rack_d_shelf_mid"
+  translation -4.2 -0.5 0.95
+  size 1.8 0.60 0.03
+  appearance PBRAppearance { baseColor 0.95 0.90 0.20 metalness 0.1 roughness 0.4 }
+}
+SolidBox {
+  name "rack_d_shelf_bottom"
+  translation -4.2 -0.5 0.30
+  size 1.8 0.60 0.03
+  appearance PBRAppearance { baseColor 0.95 0.90 0.20 metalness 0.1 roughness 0.4 }
+}
+
+DEF scba_tank SolidBox {
+  name "scba_tank"
+  translation -3.55 -0.55 1.05
+  size 0.20 0.18 0.20
+  appearance PBRAppearance { baseColor 0.20 0.40 0.95 metalness 0 roughness 0.6 }
+}
+SolidBox {
+  name "label_d"
+  translation -3.55 -0.40 1.18
+  size 0.12 0.10 0.012
+  appearance PBRAppearance { baseColor 0.2 0.4 0.95 metalness 0 }
+}
+
+Transform { translation -4.55 -0.65 1.62 children [ Shape { appearance PBRAppearance { baseColor 0.76 0.67 0.52 roughness 0.8 } geometry Box { size 0.28 0.22 0.18 } } ] }
+Transform { translation -4.05 -0.45 1.62 children [ Shape { appearance PBRAppearance { baseColor 0.76 0.67 0.52 roughness 0.8 } geometry Box { size 0.22 0.20 0.16 } } ] }
+Transform { translation -4.70 -0.55 1.02 children [ Shape { appearance PBRAppearance { baseColor 0.76 0.67 0.52 roughness 0.8 } geometry Box { size 0.30 0.22 0.18 } } ] }
+Transform { translation -4.10 -0.65 1.02 children [ Shape { appearance PBRAppearance { baseColor 0.76 0.67 0.52 roughness 0.8 } geometry Box { size 0.24 0.20 0.16 } } ] }
+Transform { translation -4.55 -0.60 0.38 children [ Shape { appearance PBRAppearance { baseColor 0.76 0.67 0.52 roughness 0.8 } geometry Box { size 0.30 0.24 0.20 } } ] }
+Transform { translation -4.05 -0.45 0.38 children [ Shape { appearance PBRAppearance { baseColor 0.76 0.67 0.52 roughness 0.8 } geometry Box { size 0.26 0.22 0.18 } } ] }
+
+# ══════════════════════════════════════════════════════════════
+# TRUCK LOADING BAY
+# ══════════════════════════════════════════════════════════════
+
+Table {
+  name "truck_platform"
+  translation 0 -4.5 0
+  size 3 1.8 0.3
+}
+
+SolidBox {
+  name "truck_cabin"
+  translation 0 -6.0 0.75
+  size 2.2 1.2 1.5
+  appearance PBRAppearance {
+    baseColor 0.85 0.05 0.05
+    metalness 0.6
+  }
+}
+
+# ══════════════════════════════════════════════════════════════
+# DECORATIVE
+# ══════════════════════════════════════════════════════════════
+
+FireExtinguisher {
+  name "ext1"
+  translation -6.3 -2.0 0
+}
+
+FireExtinguisher {
+  name "ext2"
+  translation -6.3 6.0 0
+}
+
+WoodenPallet {
+  name "pallet1"
+  translation 4.0 -4.0 0
+}
+
+# ══════════════════════════════════════════════════════════════
+# ROBOTS
+# ══════════════════════════════════════════════════════════════
+
+# TIAGo ALPHA (Blue marker) - Right side of spine
+DEF YOUBOT_ALPHA Tiago {
+  translation -1.0 -2.0 0.095
+  rotation 0 0 1 1.5708
+  name "Tiago_1"
+  controller "<extern>"
+}
+
+# ══════════════════════════════════════════════════════════════
+# SUPERVISOR
+# ══════════════════════════════════════════════════════════════
+
+DEF SUPERVISOR Robot {
+  name "firebot_supervisor"
+  controller "firebot_supervisor"
+  supervisor TRUE
+  children [
+    Emitter {
+      channel 1
+    }
+    Receiver {
+      channel 1
+    }
+  ]
+}
